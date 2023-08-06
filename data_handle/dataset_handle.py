@@ -4,6 +4,13 @@ import numpy as np
 import pyqtgraph as pg
 from pyqtgraph.Qt import QtCore
 
+
+color_plate = [
+    (255,0,0),
+    (0,0,0),
+    (0,255,0)
+]
+
 class Table_drawing:
     def __init__(self, data_type, title_lab) -> None:
         self.data = []
@@ -43,18 +50,23 @@ class Polt_draw:
         self.win.setBackground((255,255,255))
         self.p1 = self.win.addPlot(title=title_lab)
         self.win.nextRow()
-        self.p2 = self.win.addLabel("qqwqw")
+        # self.p2 = self.win.addLabel("qqwqw")
         self.p1.showGrid(y=1)
-        self.p1.setLabel("bottom", "运行时间", "s")
-        self.p1.setLabel("left", "cpu消耗", "%")
         self.p1.setMouseEnabled(True,True)
-
+        self.p1.addLegend(offset=(10,10))
+        self.data = 0
         for key,value in data.items():
             if isinstance(value,list) and len(value) > 0:
-                self.p1.plot(value, pen=(0,0,0), name=str(key))
+                self.p1.plot(value, pen=color_plate[self.data], name=str(key))
+                self.data = self.data + 1
             else:
                 print("value err")
-        self.p1.setAxisItems()
+
+    def set_bottom_Label(self,text=None,units=None):
+        self.p1.setLabel("bottom", text, units,"--")
+
+    def set_left_Label(self,text=None,units=None):
+        self.p1.setLabel("left", text, units,"--")
 
     def show(self):
         pg.exec()
