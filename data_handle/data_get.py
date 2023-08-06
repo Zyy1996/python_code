@@ -53,14 +53,14 @@ def get_free_consumption_table(file_path):
             data = Line_str_handle.free_ram_handle(line)
             if data != None:
                 proc_data["free"].append(float(data["free"])/1024.0)
-    tab = dataset_handle.Polt_draw(0,"内存消耗统计",proc_data)
+    tab = dataset_handle.Polt_draw(0,"内存剩余统计",proc_data)
     tab.set_bottom_Label("运行时间","s")
     tab.set_left_Label("内存剩余","M")
     tab.show()
 
 # get_cpu_consumption_average("352_288.log")
-# get_cpu_consumption_table("352_288.log",["iot_video_ipc_test","imi_ali"])
-get_free_consumption_table("352_288_4.log")
+get_cpu_consumption_table("352_288_5.log",["iot_video_ipc_test","imi_ali"])
+# get_free_consumption_table("352_288_5.log")
 
 # get_match_str_datas("640_480_2.log")
 # get_match_str_datas("320_240_3.log")

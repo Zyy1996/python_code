@@ -8,7 +8,9 @@ from pyqtgraph.Qt import QtCore
 color_plate = [
     (255,0,0),
     (0,0,0),
-    (0,255,0)
+    (0,255,0),
+    (0,0,255),
+    (220,220,0)
 ]
 
 class Table_drawing:
@@ -49,8 +51,6 @@ class Polt_draw:
         pg.setConfigOptions(antialias=True)
         self.win.setBackground((255,255,255))
         self.p1 = self.win.addPlot(title=title_lab)
-        self.win.nextRow()
-        # self.p2 = self.win.addLabel("qqwqw")
         self.p1.showGrid(y=1)
         self.p1.setMouseEnabled(True,True)
         self.p1.addLegend(offset=(10,10))
@@ -59,8 +59,12 @@ class Polt_draw:
             if isinstance(value,list) and len(value) > 0:
                 self.p1.plot(value, pen=color_plate[self.data], name=str(key))
                 self.data = self.data + 1
+                self.win.nextRow()
+                
+                self.win.addLabel("%s平均值:%6.2f" %(key,sum(value)/len(value)))
             else:
                 print("value err")
+        # self.p2 = self.win.addLabel("qqwqw {}" %sum)
 
     def set_bottom_Label(self,text=None,units=None):
         self.p1.setLabel("bottom", text, units,"--")
