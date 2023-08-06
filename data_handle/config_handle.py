@@ -1,5 +1,6 @@
 import json
 
+
 def cfg_load(file_path):
     try:
         with open(file_path, 'r') as f:
