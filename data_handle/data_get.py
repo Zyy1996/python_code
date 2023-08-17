@@ -16,7 +16,7 @@ def get_cpu_consumption_table(file_path,proc:list):
             data = Line_str_handle.top_idle_handle(line)
             if data is not None:
                 # print(time_num)
-                proc_data['CPU'].append(100-int(data["idle"]))
+                proc_data['CPU'].append(100-float(data["idle"]))
                 for key in proc:
                     proc_data[key].append(0)
                 time_num = time_num + 1
@@ -25,7 +25,7 @@ def get_cpu_consumption_table(file_path,proc:list):
                 data = Line_str_handle.top_single_process_handle(line,proc_index)
                 if data is not None:
                     # print(data)
-                    proc_data[proc_index][time_num-1] = int(data[proc_index])
+                    proc_data[proc_index][time_num-1] = float(data[proc_index])
                     break
         # print(proc_data)
         tab = dataset_handle.Polt_draw(0,"CPU消耗统计",proc_data)
@@ -40,7 +40,7 @@ def get_cpu_consumption_average(file_path):
         for line in f.readlines():
             data = Line_str_handle.top_idle_handle(line)
             if data != None:
-                total_data = total_data+(100-int(data['idle']))
+                total_data = total_data+(100-float(data['idle']))
                 num = num+1
     print(total_data)
     print(num)
@@ -59,8 +59,8 @@ def get_free_consumption_table(file_path):
     tab.show()
 
 # get_cpu_consumption_average("352_288.log")
-get_cpu_consumption_table("352_288_5.log",["iot_video_ipc_test","imi_ali"])
-# get_free_consumption_table("352_288_5.log")
+get_cpu_consumption_table("320_240_3.log",["iot_video_ipc_test","imi_ali"])
+# get_free_consumption_table("640_480_2.log")
 
 # get_match_str_datas("640_480_2.log")
 # get_match_str_datas("320_240_3.log")
